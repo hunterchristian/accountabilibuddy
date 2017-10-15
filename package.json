@@ -1,0 +1,14 @@
+{
+  "name": "a15y",
+  "version": "1.0.0",
+  "description": "Maps console errors to error owners via git blame",
+  "main": "bin/a15y.js",
+  "bin": {
+    "a15y": "bin/a15y.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "huncterchristian",
+  "license": "MIT"
+}
