@@ -43,44 +43,48 @@ userProcess.on('close', code => {
     }
   }
 
-  exec(allGitBlameCommands, (error, stdout, stderr) => {
-    if (error) {
-      console.error(`exec error: ${error}`);
-      return;
-    }
-
-    const results = stdout.split('\n');
-    for (let i = 0; i < results.length; i++) {
-      const result = results[i];
-      const command = commandArray[i];
-
-      const indexOfDate = result.search(dateRegex);
-      const indexOfParen = result.indexOf('(');
-      const nameOfDev = result.substring(indexOfParen + 1, indexOfDate).toLowerCase();
-      const devError = commandToErrorMap[command];
-
-      if (nameOfDev) {
-        devNameToErrorsMap[nameOfDev] = devNameToErrorsMap[nameOfDev] || [];
-        devNameToErrorsMap[nameOfDev].push(devError);
+  if (allGitBlameCommands) {
+    exec(allGitBlameCommands, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`);
+        return;
       }
-    }
 
-    let outputStr;
-    if (userEnteredNameOfDev) {
-      outputStr = `\n--- ERRORS REMAINING FOR ${userEnteredNameOfDev}---\n`;
-      for (const error of devNameToErrorsMap[userEnteredNameOfDev.toLocaleLowerCase()]) {
-        outputStr += `${error}\n\n`;
-      }
-    } else {
-      outputStr = '\n--- ERRORS REMAINING ---\n';
-      for (const devName in devNameToErrorsMap) {
-        outputStr += `Errors remaining for ${devName}: \n`;
-        for (const error of devNameToErrorsMap[devName]) {
-          outputStr += `${error}\n\n`;
+      const results = stdout.split('\n');
+      for (let i = 0; i < results.length; i++) {
+        const result = results[i];
+        const command = commandArray[i];
+
+        const indexOfDate = result.search(dateRegex);
+        const indexOfParen = result.indexOf('(');
+        const nameOfDev = result.substring(indexOfParen + 1, indexOfDate).toLowerCase();
+        const devError = commandToErrorMap[command];
+
+        if (nameOfDev) {
+          devNameToErrorsMap[nameOfDev] = devNameToErrorsMap[nameOfDev] || [];
+          devNameToErrorsMap[nameOfDev].push(devError);
         }
       }
-    }
 
-    console.log(outputStr);
-  });
+      let outputStr;
+      if (userEnteredNameOfDev) {
+        outputStr = `\n--- ERRORS REMAINING FOR ${userEnteredNameOfDev}---\n`;
+        for (const error of devNameToErrorsMap[userEnteredNameOfDev.toLocaleLowerCase()]) {
+          outputStr += `${error}\n\n`;
+        }
+      } else {
+        outputStr = '\n--- ERRORS REMAINING ---\n';
+        for (const devName in devNameToErrorsMap) {
+          outputStr += `Errors remaining for ${devName}: \n`;
+          for (const error of devNameToErrorsMap[devName]) {
+            outputStr += `${error}\n\n`;
+          }
+        }
+      }
+
+      console.log(outputStr);
+    });
+  } else {
+    console.log('\n--- No errors present in command output. ---\n')
+  }
 });
