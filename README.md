@@ -34,3 +34,38 @@ We match errors in the output by defining the string that occurs before the file
 If you want to see all errors for a command rather than filter by owner, just omit the developer name:
 
 `a15y 'npm run build' 'ERROR in [at-loader]'`
+
+Results should appear in the following format:
+
+```
+Errors remaining for matt lee:
+
+ERROR in [at-loader] ./src/reddit/reducers/imageUploads/index.ts:17:50
+    TS2339: Property 'payload' does not exist on type 'A'.
+
+ERROR in [at-loader] ./src/reddit/reducers/imageUploads/index.ts:26:47
+    TS2339: Property 'payload' does not exist on type 'A'.
+
+ERROR in [at-loader] ./src/reddit/reducers/imageUploads/index.ts:40:40
+    TS2339: Property 'payload' does not exist on type 'A'.
+
+ERROR in [at-loader] ./src/reddit/reducers/imageUploads/index.ts:45:44
+    TS2339: Property 'payload' does not exist on type 'A'.
+
+ERROR in [at-loader] ./src/reddit/reducers/moderatingSubreddits/index.ts:14:32
+    TS2339: Property 'payload' does not exist on type 'A'.
+
+Errors remaining for james edwards:
+
+ERROR in [at-loader] ./src/reddit/reducers/mediaPlayback/index.ts:20:30
+    TS2339: Property 'payload' does not exist on type 'A'.
+
+ERROR in [at-loader] ./src/reddit/reducers/mediaPlayback/index.ts:24:29
+    TS2339: Property 'payload' does not exist on type 'A'.
+
+ERROR in [at-loader] ./src/reddit/reducers/mediaPlayback/index.ts:20:30
+    TS2339: Property 'payload' does not exist on type 'A'.
+
+ERROR in [at-loader] ./src/reddit/reducers/mediaPlayback/index.ts:24:29
+    TS2339: Property 'payload' does not exist on type 'A'.
+```
