@@ -1,6 +1,6 @@
 {
   "name": "a15y",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Maps console errors to error owners via git blame",
   "main": "bin/a15y.js",
   "bin": {
